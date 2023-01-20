@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-mailhog-service
+#  namespace: ldap
+spec:
+  selector:
+    app: {{ .Release.Name }}-mailhog
+  ports:
+    - name: smtp
+      protocol: TCP
+      port: 1025
+    - name: webfrontend
+      protocol: TCP
+      port: 8025  

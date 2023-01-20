@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ .Release.Name }}-mailhog-route
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  to:
+    kind: Service
+    name: {{ .Release.Name }}-mailhog-service
+    weight: 100
+  port:
+    targetPort: webfrontend

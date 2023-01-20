@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mailhog
+  labels:
+    app: {{ .Release.Name }}-mailhog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mailhog
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mailhog
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-mailhog
+         # image: bitnami/openldap:2
+          image: image-registry.openshift-image-registry.svc:5000/{{.Release.Namespace}}/mailhog:latest
+          ports:
+            - containerPort: 1025
+            - containerPort: 8025
+            

@@ -1,0 +1,22 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: mailhogbuildconfig
+spec:
+  triggers:
+    - type: "ConfigChange"
+  source:
+    git: 
+      uri: https://github.com/carstenmichel/mailhog-helm.git
+      ref: main
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from: 
+        kind: "DockerImage"
+        name: "mailhog/mailhog"
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'mailhog:latest'
